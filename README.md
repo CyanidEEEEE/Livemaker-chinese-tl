@@ -27,7 +27,7 @@ Livemaker中文汉化教程
 
     下面我们要做的是解包，解包只需要使用pylivemaker，在需要解包的游戏exe的目录下打开cmd，使用（game为游戏exe名称，而后的game_files随意命名）
 
-lmar x game.exe -o game_files
+    lmar x game.exe -o game_files
 
 
 
@@ -53,7 +53,7 @@ lmar x game.exe -o game_files
 
       当你完成了汉化工作，我们直接使用：
 
-lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
+      lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
 
       尝试将翻译文本导入，会发现提示错误，有大量不属于CP932的字符，因此接下来，我们要处理这个问题。
 
@@ -78,11 +78,11 @@ lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
 
       接下来，我们只需要处理一些琐碎的东西即可，例如选项文本，往往不会在导出的csv中，我们需要使用：
 
-lmlsb dump --encoding=utf-8 00000033.lsb --mode xml --output-file 00000033.xml
+      lmlsb dump --encoding=utf-8 00000033.lsb --mode xml --output-file 00000033.xml
 
-     将其转换成人类可阅读的xml格式，然后找到相应的位置，对着文本所在的LineNo="XXX"，使用以下命令：
+      将其转换成人类可阅读的xml格式，然后找到相应的位置，对着文本所在的LineNo="XXX"，使用以下命令：
 
-lmlsb edit 00000033.lsb XXX
+      lmlsb edit 00000033.lsb XXX
 
       即可编辑该处，除了文本，其余尽量不要修改。
 
@@ -92,7 +92,7 @@ lmlsb edit 00000033.lsb XXX
 
       修改一些参数，我个人也没有深入研究，不过更改字体显示的参数在我所汉化的游戏中，位于メッセージボックス作成.lsb，因此我们按照第五步的方法，使用：
 
-lmlsb dump --encoding=utf-8 メッセージボックス作成.lsb --mode xml --output-file メッセージボックス作成.xml
+      lmlsb dump --encoding=utf-8 メッセージボックス作成.lsb --mode xml --output-file メッセージボックス作成.xml
 
       然后自行查看文本，按照第五步的方法更改调试即可。
 
@@ -106,4 +106,4 @@ lmlsb dump --encoding=utf-8 メッセージボックス作成.lsb --mode xml --o
 
       原创声明：本文为我原创，转载请注明出处及作者！
 
-Cyan
+      Cyan
