@@ -26,7 +26,7 @@
 
 下面我们要做的是解包，解包只需要使用pylivemaker，在需要解包的游戏exe的目录下打开cmd，使用（game为游戏exe名称，而后的game_files随意命名）
 
-                                   lmar x game.exe -o game_files
+    lmar x game.exe -o game_files
 
 
 
@@ -35,7 +35,7 @@
 
 我们在解包出来的文件中，寻找剧本，往往是解包目录下最大的lsb文件，使用pylivemaker将其转换为csv，例如我的剧本lsb是00000033.lsb，那么打开cmd，使用以下命令即可：
 
-                                   lmlsb extractcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
+    lmlsb extractcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
 
 我们将得到00000033.csv，用openoffice或libreoffice使用以下参数打开：
       
@@ -48,7 +48,7 @@
 
 当你完成了汉化工作，我们直接使用：
 
-                                   lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
+    lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
 
 尝试将翻译文本导入，会发现提示错误，有大量不属于CP932的字符，因此接下来，我们要处理这个问题。
 
@@ -70,11 +70,11 @@ CP932涵盖的字符在此查阅：https://uic.win/zh-hant/charset/show/cp932/
 
 接下来，我们只需要处理一些琐碎的东西即可，例如选项文本，往往不会在导出的csv中，我们需要使用：
 
-                                   lmlsb dump --encoding=utf-8 00000033.lsb --mode xml --output-file 00000033.xml
+    lmlsb dump --encoding=utf-8 00000033.lsb --mode xml --output-file 00000033.xml
 
 将其转换成人类可阅读的xml格式，然后找到相应的位置，对着文本所在的LineNo="XXX"，使用以下命令：
 
-                                   lmlsb edit 00000033.lsb XXX
+    lmlsb edit 00000033.lsb XXX
 
 即可编辑该处，除了文本，其余尽量不要修改。
 
@@ -84,7 +84,7 @@ CP932涵盖的字符在此查阅：https://uic.win/zh-hant/charset/show/cp932/
 
 修改一些参数，我个人也没有深入研究，不过更改字体显示的参数在我所汉化的游戏中，位于メッセージボックス作成.lsb，因此我们按照第五步的方法，使用：
 
-                                   lmlsb dump --encoding=utf-8 メッセージボックス作成.lsb --mode xml --output-file メッセージボックス作成.xml
+    lmlsb dump --encoding=utf-8 メッセージボックス作成.lsb --mode xml --output-file メッセージボックス作成.xml
 
 然后自行查看文本，按照第五步的方法更改调试即可。
 
