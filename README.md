@@ -40,7 +40,7 @@ lmar x game.exe -o game_files
 
       我们将得到00000033.csv，用openoffice或libreoffice使用以下参数打开：
 
-      ![](https://raw.githubusercontent.com/CyanidEEEEE/Livmaker-chinese-tl/main/1.webp)
+      ![image](https://raw.githubusercontent.com/CyanidEEEEE/Livmaker-chinese-tl/main/1.webp)
 
 
 
