@@ -39,8 +39,8 @@ lmar x game.exe -o game_files
       lmlsb extractcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
 
       我们将得到00000033.csv，用openoffice或libreoffice使用以下参数打开：
-
-      ![image](https://github.com/CyanidEEEEE/Livmaker-chinese-tl/blob/main/1.png)
+      
+![image](https://github.com/CyanidEEEEE/Livmaker-chinese-tl/blob/main/1.png)
 
 
 
