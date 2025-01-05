@@ -8,12 +8,6 @@
 - json语法
 - csv基本知识
 
-最近有热心网友也编写了自己的经验，我感觉写的非常好比我的技术力强多了，不过因为它是fork的无法直接搜索到，因此在这里指路方便大家学习汉化
-
-https://github.com/allrobot/Livemaker-chinese-tl/tree/main
-
-非常感谢这位网友愿意分享自己的经验，也让我学习到原来我放弃的方案是如何实现的。
-
 首先，我们使用的工具如下：
 
 （1）Pylivemaker，来自https://github.com/pmrowla/pylivemaker ；
