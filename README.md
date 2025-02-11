@@ -23,10 +23,10 @@
         pip install pylivemaker
         ```
         *  根据pylivemaker作者要求Python>=3.8，可通过Conda安装，或[官网](https://www.python.org/downloads/) 下载最新版本
-    *    **用法示例:**
+    *   **用法示例：**
         ```cmd
-        cd /d "D:\livemaker游戏exe所在的路径"
-        lmar x game.exe -o 解包文件夹名（随意命名）
+        cd /d "D:\livemaker游戏exe所在的路径"<br>
+        lmar x game.exe -o 解包文件夹名
         ```
 
 2.  **FontCreator:**
