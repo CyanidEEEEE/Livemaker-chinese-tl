@@ -19,13 +19,12 @@
     *   **作用：** 用于解包和封包 LiveMaker 引擎的游戏资源。
     *   **来源：** [GitHub](https://github.com/pmrowla/pylivemaker)
     *   **安装：**
-        ```bash
+        ```cmd
         pip install pylivemaker
         ```
         *  根据pylivemaker作者要求Python>=3.8，可通过Conda安装，或[官网](https://www.python.org/downloads/) 下载最新版本
     *    **用法示例:**
-        ```
-        bash
+        ```cmd
         cd /d "D:\livemaker游戏exe所在的路径"
         lmar x game.exe -o 解包文件夹名（随意命名）
         ```
@@ -43,11 +42,11 @@
     *   **作用：** 用于从 CSV 文件中提取文本，并生成 JSON 文件，方便翻译工具处理。
     *   **来源：** [GitHub](https://github.com/satan53x/SExtractor)
     *   **安装：**
-        ```bash
+        ```cmd
         git clone git@github.com:satan53x/SExtractor.git
         cd SExtractor
-        安装依赖.bat # 运行此批处理文件安装依赖
-        运行.bat    # 运行 SExtract
+        安装依赖.bat  
+        运行.bat     
         ```
     *   **注意:** SExtract要求Python>=3.9版本
 
@@ -69,11 +68,11 @@
 
 1.  **打开命令行：** 使用 Win+R 或 Win+Q 搜索 "cmd"，打开命令提示符。
 2.  **切换目录：** 使用 `cd` 命令切换到游戏所在的目录：
-    ```bash
+    ```cmd
     cd /d "D:\livemaker游戏exe所在的路径"
     ```
 3.  **解包：** 使用 Pylivemaker 的 `lmar` 命令解包游戏资源：
-    ```bash
+    ```cmd
     lmar x game.exe -o 解包文件夹名（随意命名）
     ```
 
@@ -81,7 +80,7 @@
 
 1.  **寻找剧本文件：** 在解包出来的文件夹中，找到最大的 `.lsb` 文件，通常这就是剧本文件（例如 `00000033.lsb`）。
 2.  **转换为 CSV：** 使用 Pylivemaker 的 `lmlsb` 命令将 `.lsb` 文件转换为 CSV 文件：
-    ```bash
+    ```cmd
     lmlsb extractcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
     ```
     *   `--encoding=utf-8-sig`：指定编码为 UTF-8 with BOM，避免中文乱码。
@@ -117,7 +116,7 @@
 1. **注入文本：** 在 SExtract 中点击 "注入" 按钮，它会在 `new` 文件夹下生成新的 CSV 文件。
 2. **替换 CSV 文件** 把这个 CSV 文件放回原来的`解包文件夹名`目录覆盖原 CSV 文件（注意备份）
 3.  **使用lmlsb导回:** 使用 Pylivemaker 的 `lmlsb` 命令将翻译后的 CSV 文件导回到 `.lsb` 文件：
-    ```bash
+    ```cmd
     lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
     ```
 
@@ -131,8 +130,8 @@
 ### 6. 封包并替换字体
 
 1.  **封包：** 将修改后的 `.lsb` 文件与游戏主程序（`.exe`）放在同一个目录下。使用 `lmpatch` 命令进行封包。
-    ```bash
-    lmpatch some.exe 00000001.lsb #00000001.lsb只是一个例子，根据具体情况修改
+    ```cmd
+    lmpatch some.exe 00000001.lsb 
     ```
     *   这将生成一个新的 `.exe` 文件。
 2.  **测试:** 使用 Locale.Emulator 打开游戏，如果发现日文字符修改成功了，只需要做下面任意字体方案即可，其中方案3.（2） 最快捷
