@@ -1,100 +1,123 @@
-# Livemaker翻译、中文汉化教程
+# LiveMaker 游戏汉化详细教程
 
-为了汉化黑礁2、3，研究Livemaker已经很久了，中文互联网上残留的几篇教程，存在着诸多问题，例如只能解密而不能加密回去，只知道如何打开剧本文件修改，却因为他们自己并没有实际汉化，而根本不知道livemaker只能使用CP932编码的事实。
+本教程详细介绍了 LiveMaker 引擎游戏的汉化方法，并着重解决了现有教程中存在的一些问题（例如无法加密、编码问题等）。本教程基于作者汉化《黑礁》2、3 的经验总结而成。
 
-今天，为了解决这些漫长的遗留问题，我将介绍自己汉化Livemaker的经验。
-
-最近有热心网友也编写了自己的经验，我感觉写的非常好比我的技术力强多了，不过因为它是fork的无法直接搜索到，因此在这里指路方便大家学习汉化
-
-https://github.com/allrobot/Livemaker-chinese-tl/tree/main
-
-非常感谢这位网友愿意分享自己的经验，也让我学习到原来我放弃的方案是如何实现的。
-
-首先，我们使用的工具如下：
-
-（1）Pylivemaker，来自https://github.com/pmrowla/pylivemaker ；
-
-（2）FontCreator，非开源软件；
-
-（3）openoffice或libreoffice，来自https://www.libreoffice.org/ ；
-
-（4）Locale.Emulator，来自https://github.com/xupefei/Locale-Emulator 
-      
-（5）GraphicsGale，来自https://graphicsgale.com/us/download.html ；
+**注意：** 本教程仅供学习和研究使用，请勿用于任何商业用途或非法活动。对于因使用本教程而产生的任何问题或后果，作者概不负责。
 
 
-我们首先要做的就是，安装上述软件，安装livemaker需要安装最新的python，然后进入cmd使用pip install pylivemaker命令，安装完毕。
+---
 
-其他软件自行获取安装包安装即可。
+## 工具准备
 
+1.  **Pylivemaker:**
+    *   **作用：** 用于解包、封包、转换 LiveMaker 游戏资源。
+    *   **来源：** [GitHub](https://github.com/pmrowla/pylivemaker)
+    *   **安装：**
+        ```cmd
+        pip install pylivemaker
+        ```
+     *  根据pylivemaker作者要求Python>=3.8，可通过Conda安装，或[官网](https://www.python.org/downloads/) 下载最新版本
 
-## 第一步
+2.  **FontCreator:**
+    *   **作用：** 用于编辑字体文件，替换字符。
+    *   **类型：** 商业软件（付费软件）
 
-下面我们要做的是解包，解包只需要使用pylivemaker，在需要解包的游戏exe的目录下打开cmd，使用（game为游戏exe名称，而后的game_files随意命名）
+3.  **OpenOffice 或 LibreOffice:**
+    *   **作用：** 用于编辑 CSV 格式的剧本文件。
+    *   **来源：** [LibreOffice 官网](https://www.libreoffice.org/)
 
+4.  **Locale.Emulator:**
+    *   **作用：** 用于模拟特定区域设置（Locale）运行程序，解决乱码问题。
+    *   **来源：** [GitHub](https://github.com/xupefei/Locale-Emulator)
+
+5.  **GraphicsGale:**
+    *   **作用：** 用于转换 LiveMaker 特殊的图片格式。
+    *   **来源：** [GraphicsGale 官网](https://graphicsgale.com/us/download.html)
+
+---
+
+## 汉化流程
+
+### 1. 解包游戏资源
+
+1.  **打开命令行：** 在游戏 `.exe` 文件所在的目录下，打开命令行窗口（CMD）。
+2.  **解包：** 使用 Pylivemaker 的 `lmar` 命令解包游戏资源：
+    ```cmd
     lmar x game.exe -o game_files
+    ```
+    *   `game.exe`：替换为您的游戏 `.exe` 文件名。
+    *   `game_files`：您可以自定义解包后的文件夹名称。
 
+### 2. 提取并翻译剧本
 
-
-
-## 第二步
-
-我们在解包出来的文件中，寻找剧本，往往是解包目录下最大的lsb文件，使用pylivemaker将其转换为csv，例如我的剧本lsb是00000033.lsb，那么打开cmd，使用以下命令即可：
-
+1.  **寻找剧本文件：** 在解包后的文件夹中，找到最大的 `.lsb` 文件，这通常就是剧本文件（例如 `00000033.lsb`）。
+2.  **转换为 CSV：** 使用 Pylivemaker 的 `lmlsb` 命令将 `.lsb` 文件转换为 CSV 文件：
+    ```cmd
     lmlsb extractcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
+    ```
+    *   `--encoding=utf-8-sig`：指定编码为 UTF-8 with BOM，避免中文乱码。
+3.  **编辑 CSV：** 使用 OpenOffice 或 LibreOffice 打开生成的 CSV 文件。
+    *   **打开参数：**
+        *   字符集：`Unicode (UTF-8)`
+        *   分隔符：`逗号`
+        *   文本分隔符: `"`
+    *   **翻译：** 将 "Translated text" 列中的文本翻译为中文。
+        *   **注意换行符：** 保持原文的换行符格式。在单元格中按下 `Ctrl + Enter` 可以输入换行符。
 
-我们将得到00000033.csv，用openoffice或libreoffice使用以下参数打开：
-      
-![image](https://github.com/CyanidEEEEE/Livmaker-chinese-tl/blob/main/1.png)
+### 3. 处理编码问题（CP932）
 
-即可看到类似excel排列的剧本文件，我们需要汉化的内容只需要对照原文格式填入Translated text即可，注意，换行符也应对齐，在编辑时按下ctrl+enter即可输入。
+**问题：** LiveMaker 引擎仅支持 CP932 编码，直接导入翻译后的文本会导致错误。
 
+**解决方案：** 替换字体文件。
 
-## 第三步
-
-当你完成了汉化工作，我们直接使用：
-
+1.  **原理：** LiveMaker 通常默认使用 MS Gothic 字体。我们可以修改 MS Gothic 字体，将 CP932 中不常用的字符替换为汉字。
+2.  **CP932 字符集：** [参考链接](https://uic.win/zh-hant/charset/show/cp932/)
+3.  **修改字体（可选）：**
+    *   我提供了一份修改过的 LiveMaker 字体（基于思源黑体）和替换表。
+    *   如果您需要添加新的字符，可以使用 FontCreator 进行替换。
+4.  **简繁转换：** 在使用我提供的替换表之前，建议先将文本进行简繁转换（简体转繁体），因为我已将简繁体不同的字体合并，统一显示为简体字形。CP932 中的繁体字多于简体字，因此使用繁体文本可以减少需要导入的新字符数量。
+5.  **导回翻译文本:** 使用 Pylivemaker 的 `lmlsb` 命令将翻译后的 CSV 文件导回到 `.lsb` 文件：
+    ```cmd
     lmlsb insertcsv --encoding=utf-8-sig 00000033.lsb 00000033.csv
+    ```
 
-尝试将翻译文本导入，会发现提示错误，有大量不属于CP932的字符，因此接下来，我们要处理这个问题。
+### 4. 修改 UI 图片（可选）
 
-我采用的是替换字体方案，Livemaker一般默认调用MS Gothic字体，因此我们只需要更改MS Gothic，将CP932中存在的不怎么使用的字符替换掉，即可让Livemaker显示我们需要的字符。
+1.  **使用 GraphicsGale：** LiveMaker 的图片格式特殊，需要使用 GraphicsGale 进行转换。
+2.  **处理 Alpha 通道：**
+    *   GraphicsGale 转换出的 PNG 图片带有 Alpha 通道，可能难以编辑。
+    *   **分离 Alpha 通道：** 使用 `Image` -> `Duplicate Alpha Channel` 将 Alpha 通道分离。
+    *   **导出编辑：** 将图片导出为其他格式进行编辑，或者在 GraphicsGale 中直接编辑。
+    *   **恢复 Alpha 通道：** 编辑完成后，使用 `Image` -> `Make Alpha Channel`，选择 `Luminance` 并选择之前分离的 Alpha 通道图片，即可恢复 Alpha 通道。
 
-CP932涵盖的字符在此查阅：https://uic.win/zh-hant/charset/show/cp932/
+### 5. 修改选项文本（可选）
 
-在这里，我提供一下我修改过的Livemaker字体，取自思源黑体，以及Livemaker替换表，如果你汉化的内容有新的字符需要导入，则自己使用FontCreator替换即可。
-
-注意：在使用我提供的Livemaker替换表之前，应先把文本简转繁，因为在我修改的字体中，简繁体不同的字体已经被合并到一起，统一显示为简体字形，CP932中的繁体字多于简体字，因此也建议尽量使用繁体文本，减少需要导入的新字符。
-
-
-## 第四步
-
-我们搞定文本，则需要更改UI，Livemaker的图片格式很特别，由Humanbalance的软件GraphicsGale才能转换，我们使用这个软件，要注意，他转换出来的PNG带有阿尔法通道，往往难以编辑，因此我建议使用Image - Duplicate Alpha Channel的方式，将阿尔法通道分离，然后再导出编辑或者导出后在GraphicsGale编辑，之后在使用Image - Make Alpha Channel参数选择Luminance和之前分离的图片，即可恢复阿尔法通道。
-
-
-## 第五步
-
-接下来，我们只需要处理一些琐碎的东西即可，例如选项文本，往往不会在导出的csv中，我们需要使用：
-
+1.  **导出 XML：** 选项文本通常不在 CSV 文件中。使用以下命令将 `.lsb` 文件转换为 XML 格式：
+    ```cmd
     lmlsb dump --encoding=utf-8 00000033.lsb --mode xml --output-file 00000033.xml
-
-将其转换成人类可阅读的xml格式，然后找到相应的位置，对着文本所在的LineNo="XXX"，使用以下命令：
-
+    ```
+2.  **查找文本：** 在 XML 文件中找到选项文本所在的位置，记录下对应的 `LineNo` 值。
+3.  **编辑文本：** 使用以下命令编辑指定行的文本：
+    ```cmd
     lmlsb edit 00000033.lsb XXX
+    ```
+    *   `XXX`：替换为文本所在的 `LineNo` 值。
+    *   **注意：** 除了文本内容，尽量不要修改其他内容。
 
-即可编辑该处，除了文本，其余尽量不要修改。
+### 6. 修改其他参数（可选）
 
-
-
-## 第六步
-
-修改一些参数，我个人也没有深入研究，不过更改字体显示的参数在我所汉化的游戏中，位于メッセージボックス作成.lsb，因此我们按照第五步的方法，使用：
-
+1.  **查找参数文件：** 根据您的需要，查找包含需要修改的参数的文件（例如，在我的汉化项目中，字体显示参数位于 `メッセージボックス作成.lsb`）。
+2.  **导出 XML：** 使用 `lmlsb dump` 命令将文件转换为 XML 格式：
+    ```cmd
     lmlsb dump --encoding=utf-8 メッセージボックス作成.lsb --mode xml --output-file メッセージボックス作成.xml
+    ```
+3.  **修改参数：** 参考第五步的方法，修改 XML 文件中的参数。
 
-然后自行查看文本，按照第五步的方法更改调试即可。
+### 7. 发布汉化补丁
 
+**建议：** 不要直接发布完整的游戏文件，而是利用 LiveMaker 优先调用外部文件的特性，发布补丁。
 
-## 第七步
- 
-我不推荐将游戏完整放出的方式，因此推荐利用Livemaker优先调用外面目录文件的特性，放出补丁，只要将需要更改的文件放出即可，然后让使用者将原游戏exe放在补丁目录下，即可使用。
+1.  **整理文件：** 将需要修改的文件（例如 `.lsb`、字体文件、修改后的图片等）整理到一个文件夹中。
+2.  **发布补丁：** 让用户将原版游戏 `.exe` 文件放在补丁文件夹中，即可使用汉化补丁。
+
+---
