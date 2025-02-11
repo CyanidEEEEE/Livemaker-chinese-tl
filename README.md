@@ -26,7 +26,6 @@
     *    **用法示例:**
         ```cmd
         cd /d "D:\livemaker游戏exe所在的路径"
-
         lmar x game.exe -o 解包文件夹名（随意命名）
         ```
 
